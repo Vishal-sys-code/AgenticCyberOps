@@ -123,3 +123,10 @@ streamlit run streamlit_app.py
 - **Error Handling:** The pipeline includes retry logic. If a scan command fails, it will automatically retry using alternate parameters.
 - **Customization:** You can modify the allowed scope, add more scanning tools, or extend the workflow with additional nodes as needed.
 - **Permissions:** Ensure you have explicit permission to scan any target. Unauthorized scanning may have legal consequences.
+- 
+
+## **Screenshots**
+### **Running on `example.com`**
+![first_screenshot](https://github.com/Vishal-sys-code/AgenticCyberOps/blob/main/Images/example-1-ss.png)
+![second_screenshot](https://github.com/Vishal-sys-code/AgenticCyberOps/blob/main/Images/example-2-ss.png)
+![third_screenshot](https://github.com/Vishal-sys-code/AgenticCyberOps/blob/main/Images/example-3-ss.png)
