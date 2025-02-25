@@ -31,7 +31,10 @@ class CyberSecurityState(BaseModel):
     task: str
     task_list: List[str] = []
     results: List[str] = []
-    allowed_scope: List[str] = ["example.com", "192.168.1.0/24"]
+    # Use a wildcard to allow any link
+    allowed_scope: List[str] = ["*"]
+    # If we want to allow any specific link then we need to write:
+    # allowed_scope: List[str] = ["example.com", "google.com", "facebook.com"] # Try this also if you have any specific links.
     logs: List[str] = []
     final_report: str = ""  # Field for the final report
 
@@ -87,6 +90,11 @@ def task_decomposition(state: dict) -> dict:
 # 3.3 Implement Scope Constraints
 def apply_scope_constraints(state: dict) -> dict:
     state_obj = CyberSecurityState.model_validate(state)
+    # If wildcard is present, allow all tasks without filtering.
+    if "*" in state_obj.allowed_scope:
+        state_obj.logs.append("[Scope Constraints] Wildcard detected. All targets allowed.")
+        return state_obj.model_dump()
+    
     filtered_tasks = []
     for task in state_obj.task_list:
         if any(scope in task for scope in state_obj.allowed_scope):
@@ -121,6 +129,17 @@ def execute_tasks_with_retry(state: dict) -> dict:
     state_obj.results = results
     return state_obj.model_dump()
 
+# Optional: Dynamic Task Updates (Based on intermediate results)
+def dynamic_task_update(state: dict) -> dict:
+    state_obj = CyberSecurityState.model_validate(state)
+    # Example: if nmap output contains "80/tcp open", add a new task for HTTP scan.
+    for result in state_obj.results:
+        if "80/tcp open" in result and not any("HTTP scan on" in task for task in state_obj.task_list):
+            new_task = f"HTTP scan on {state_obj.task.split()[1]}"
+            state_obj.task_list.append(new_task)
+            state_obj.logs.append(f"[Dynamic Update] Added new task: {new_task}")
+    return state_obj.model_dump()
+
 # Step 5: Implement Logging & Reporting
 def generate_report(state: dict) -> dict:
     state_obj = CyberSecurityState.model_validate(state)
@@ -140,11 +159,15 @@ workflow = StateGraph(CyberSecurityState)
 workflow.add_node("Task Decomposition", task_decomposition)
 workflow.add_node("Apply Scope Constraints", apply_scope_constraints)
 workflow.add_node("Execute Tasks with Retry", execute_tasks_with_retry)
+workflow.add_node("Dynamic Task Update", dynamic_task_update)
 workflow.add_node("Generate Report", generate_report)
 workflow.set_entry_point("Task Decomposition")
 workflow.add_edge("Task Decomposition", "Apply Scope Constraints")
 workflow.add_edge("Apply Scope Constraints", "Execute Tasks with Retry")
-workflow.add_edge("Execute Tasks with Retry", "Generate Report")
+# Route through the dynamic update node before generating the final report
+workflow.add_edge("Execute Tasks with Retry", "Dynamic Task Update")
+workflow.add_edge("Dynamic Task Update", "Generate Report")
+
 agent = workflow.compile()
 
 # -----------------------------------------------------------------------------
@@ -152,9 +175,10 @@ agent = workflow.compile()
 # -----------------------------------------------------------------------------
 def run_security_pipeline(task_description: str) -> dict:
     """
-    Initializes the state with the provided high-level task, runs the workflow,
-    and returns the final state (including the final report and logs).
+    Initializes the state with the provided high-level task, forces allowed_scope to ["*"],
+    runs the workflow, and returns the final state (including the final report and logs).
     """
-    initial_state = CyberSecurityState(task=task_description)
+    # Force allowed_scope to be a wildcard to allow scanning any link
+    initial_state = CyberSecurityState(task=task_description, allowed_scope=["*"])
     final_state = agent.invoke(initial_state.model_dump())
     return final_state
