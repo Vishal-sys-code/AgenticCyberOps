@@ -27,6 +27,9 @@ The system is composed of several key components:
 - **Integration with External Tools and APIs:**  
   The agent utilizes external security tools and Google’s Gemini API for natural language processing. The API key is securely loaded from a `.env` file.
 
+- Flowchart or Architecture
+![Flowchart_of_AgenticCyberOps](https://github.com/Vishal-sys-code/AgenticCyberOps/blob/main/Flowchart.jpg)
+
 ---
 
 ## Agent Roles and Responsibilities
