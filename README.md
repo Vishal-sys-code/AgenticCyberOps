@@ -4,6 +4,12 @@ AgenticCyberOps is an autonomous cybersecurity pipeline built using LangGraph an
 
 ---
 
+## Important software needs to be installed
+- Nmap
+- Gobuster
+You can install it by visiting their download pages and then after downloading you need to set the path in the Environment Variables and then run some commands like `nmap --version` and `gobuster -h`.
+This process is for Windows. If you have iMac or Macbook or Linux Distributed Systems, then refer to the documentation. 
+
 ## System Architecture
 
 The system is composed of several key components:
@@ -123,7 +129,6 @@ streamlit run streamlit_app.py
 - **Error Handling:** The pipeline includes retry logic. If a scan command fails, it will automatically retry using alternate parameters.
 - **Customization:** You can modify the allowed scope, add more scanning tools, or extend the workflow with additional nodes as needed.
 - **Permissions:** Ensure you have explicit permission to scan any target. Unauthorized scanning may have legal consequences.
-- 
 
 ## **Screenshots**
 ### **Running on `example.com`**
