@@ -1,0 +1,4 @@
+langgraph
+google-generativeai
+pydantic
+streamlit
