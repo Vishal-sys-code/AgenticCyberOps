@@ -2,7 +2,7 @@ import streamlit as st
 import html
 from cybersecurity_pipeline import run_security_pipeline
 
-st.set_page_config(page_title="Cybersecurity Scanner", layout="wide")
+st.set_page_config(page_title="AgenticCyberOps", layout="wide")
 
 # Inject custom CSS for styling (make sure this string is not indented unexpectedly)
 st.markdown(
