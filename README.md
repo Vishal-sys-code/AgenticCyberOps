@@ -1,6 +1,6 @@
 # AgenticCyberOps
 
-AgenticCyberOps is an autonomous cybersecurity pipeline built using LangGraph and LangChain. It is designed as an intelligent agent that decomposes high-level security tasks, enforces target scope constraints, executes security scans using tools like nmap and gobuster, and generates a comprehensive security audit report with detailed logs.
+AgenticCyberOps is an autonomous cybersecurity pipeline built using LangGraph and LangChain. It is designed as an intelligent agent that decomposes high-level security tasks, enforces target scope constraints, executes security scans using tools like `nmap` and `gobuster`, and generates a comprehensive security audit report with detailed logs.
 
 ---
 
