@@ -6,7 +6,7 @@ AgenticCyberOps is an autonomous cybersecurity pipeline built using LangGraph an
 
 ## Important software needs to be installed
 - Nmap
-- Gobuster
+- Gobuster <br>
 You can install it by visiting their download pages and then after downloading you need to set the path in the Environment Variables and then run some commands like `nmap --version` and `gobuster -h`.
 This process is for Windows. If you have iMac or Macbook or Linux Distributed Systems, then refer to the documentation. 
 
