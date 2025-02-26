@@ -184,8 +184,13 @@ def run_security_pipeline(task_description: str) -> dict:
     return final_state
 
 """
- Working on example.com, en.wikipedia.org, scanme.nmap.org => Perfectly....
- Where as in the google.com, facebook.com or 192.168.0.1/24 => It is not working just because it is skipping some parts of checks.
+Scanning on domains: 
 
- I have implemented the dynamic task update from which we can know the results of the scanned part if the ports are get switched in between.
+1. example.com = 
+2. en.wikipedia.org = 
+3. scanme.nmap.org = 
+4. google.com = 
+5. facebook.com = 
+6. 192.168.0.1/24 = 
+7. 192.168.0.1/24 = 
 """
