@@ -186,11 +186,14 @@ def run_security_pipeline(task_description: str) -> dict:
 """
 Scanning on domains: 
 
-1. example.com = 
-2. en.wikipedia.org = 
-3. scanme.nmap.org = 
-4. google.com = 
-5. facebook.com = 
-6. 192.168.0.1/24 = 
-7. 192.168.0.1/24 = 
+1. example.com = 41.12 seconds, report is generated without any errors except for the other addresses of this domain.
+2. en.wikipedia.org = 35.41 seconds, report is generated successfully. Its not shown on the port of 989 (I need to check the dynamic task function of ports).
+3. scanme.nmap.org =  29.95 seconds, report is generated successfully.
+4. google.com = 60 seconds, its timeout didn't generate the report as expected same for the logs.
+5. facebook.com = 40.52 seconds, it has generated the audit report however the important part is that it generated weird things in the report. 
+6.                The report is generated successfully.
+6. 192.168.1.0/24 = 60 seconds, runned successfully however the report isn't generated same as 'google.com'.
+7. x.com = 60 seconds, Same as the 'google.com'
+
+Runned on 7 domains and go some successfull results. However it needs to be optimised.
 """
