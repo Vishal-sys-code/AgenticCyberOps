@@ -182,3 +182,10 @@ def run_security_pipeline(task_description: str) -> dict:
     initial_state = CyberSecurityState(task=task_description, allowed_scope=["*"])
     final_state = agent.invoke(initial_state.model_dump())
     return final_state
+
+"""
+ Working on example.com, en.wikipedia.org, scanme.nmap.org => Perfectly....
+ Where as in the google.com, facebook.com or 192.168.0.1/24 => It is not working just because it is skipping some parts of checks.
+
+ I have implemented the dynamic task update from which we can know the results of the scanned part if the ports are get switched in between.
+"""
